@@ -17,6 +17,13 @@ namespace UnlockPDF
             Console.WriteLine("本程序支持批量解除PDF编辑限制，处理完自动覆盖原文件。");
             Console.WriteLine("Tips:由于嵌入了dll资源，360可能会报毒，请忽略之!");
             Console.WriteLine("『C0de by 工艺系统室-热工组-hangch Ver1.1』\n");
+            Console.WriteLine(@"   __  __      __           __   ____  ____  ______
+  / / / /___  / /___  _____/ /__/ __ \/ __ \/ ____/
+ / / / / __ \/ / __ \/ ___/ //_/ /_/ / / / / /_    
+/ /_/ / / / / / /_/ / /__/ ,< / ____/ /_/ / __/    
+\____/_/ /_/_/\____/\___/_/|_/_/   /_____/_/       
+                                                   
+");
 
             var ofd = new OpenFileDialog()
             {

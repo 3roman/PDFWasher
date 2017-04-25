@@ -1,0 +1,5 @@
+C:\Users\hangch\Desktop\unlock-pdf\bin\Debug\UnlockPDF.exe
+C:\Users\hangch\Desktop\unlock-pdf\bin\Debug\UnlockPDF.pdb
+C:\Users\hangch\Desktop\unlock-pdf\obj\Debug\UnlockPDF.csprojResolveAssemblyReference.cache
+C:\Users\hangch\Desktop\unlock-pdf\obj\Debug\UnlockPDF.exe
+C:\Users\hangch\Desktop\unlock-pdf\obj\Debug\UnlockPDF.pdb
