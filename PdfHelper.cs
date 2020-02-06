@@ -6,6 +6,35 @@ namespace PDFWasher
 {
     class PdfHelper
     {
+        public static void RemoveRestrictions(string oldFile, string newFile)
+        {
+            using (var reader = new PdfReader(oldFile))
+            {
+                PdfReader.unethicalreading = true;
+                // saving original bookmark
+                var bookerMark = SimpleBookmark.GetBookmark(reader);
+                using (var fs = new FileStream(newFile, FileMode.Create, FileAccess.Write))
+                {
+                    using (var doc = new Document())
+                    {
+                        using (var copy = new PdfCopy(doc, fs))
+                        {
+                            doc.Open();
+                            for (var pageIndex = 1; pageIndex <= reader.NumberOfPages; pageIndex++)
+                            {
+                                copy.AddPage(copy.GetImportedPage(reader, pageIndex));
+                            }
+                            if (null != bookerMark)
+                            {
+                                copy.Outlines = bookerMark;
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+
         public static void RemoveUriLinks(string oldFile, string newFile)
         {
             using (var reader = new PdfReader(oldFile))
@@ -44,36 +73,7 @@ namespace PDFWasher
                         annots.ArrayList.RemoveAt(annotIndex);
                     }
                 }
-
                 SavePdf(reader, newFile);
-            }
-
-        }
-
-        public static void RemoveRestrictions(string oldFile, string newFile)
-        {
-            var reader = new PdfReader(oldFile);
-            PdfReader.unethicalreading = true;
-            // saving original bookmark
-            var bookerMark = SimpleBookmark.GetBookmark(reader);
-            using (var fs = new FileStream(newFile, FileMode.Create, FileAccess.Write))
-            {
-                using (var doc = new Document())
-                {
-                    using (var copy = new PdfCopy(doc, fs))
-                    {
-                        doc.Open();
-                        for (var pageIndex = 1; pageIndex <= reader.NumberOfPages; pageIndex++)
-                        {
-                            copy.AddPage(copy.GetImportedPage(reader, pageIndex));
-                        }
-                        if (null != bookerMark)
-                        {
-                            copy.Outlines = bookerMark;
-                        }
-                    }
-
-                }
             }
         }
 
