@@ -4,3 +4,5 @@
 .vs/PDFWasher/v15/Server/sqlite3/storage.ide
 .vs/PDFWasher/v15/Server/sqlite3/storage.ide-shm
 .vs/PDFWasher/v15/Server/sqlite3/storage.ide-wal
+obj/
+bin/

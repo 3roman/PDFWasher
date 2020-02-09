@@ -1,47 +1,60 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Windows.Forms;
 
 namespace PDFWasher
 {
-    public partial class frmMain : Form
+    public partial class FrmMain : Form
     {
-        public frmMain()
+        public FrmMain()
         {
             InitializeComponent();
             Text = string.Format("PDFWasher V{0}", Application.ProductVersion);
         }
 
-        public override sealed string Text
+        private void FrmMain_DragEnter(object sender, DragEventArgs e)
         {
-            get { return base.Text; }
-            set { base.Text = value; }
-        }
-
-        private void frmMain_DragEnter(object sender, DragEventArgs e)
-        {
+            // 设置拖入文件时鼠标效果
             e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Link : DragDropEffects.None;
         }
 
-        private void frmMain_DragDrop(object sender, DragEventArgs e)
+        private void FrmMain_DragDrop(object sender, DragEventArgs e)
         {
-            var date = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
-            if (!date.ToLower().Contains(".pdf"))
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                txtFielPath.Text = "非pdf文件!!!";
-                return;
+                var files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                foreach (var file in files)
+                {
+                    if (Path.GetExtension(file).ToLower().Contains(".pdf"))
+                    {
+                        txtPrompt.Text = "[-]操作失败";
+                        if (ManiplatePDF(file))
+                        {
+                            txtPrompt.Text = "[+]操作成功";
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show($"[-]{file}\r非法PDF文件", "报错信息",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
-            txtFielPath.Text = date;
+        }
 
-            var tmpFile = Path.GetTempPath() + Path.GetFileName(date);
+        private bool ManiplatePDF(string pdfFile)
+        {
+            var succeed = false;
+
+            var tmpFile = Path.GetTempPath() + Path.GetFileName(pdfFile);
             // 移除编辑限制
-            File.Copy(date, tmpFile, true);
-            File.Delete(date);
-            PdfHelper.RemoveRestrictions(tmpFile, date);
+            File.Copy(pdfFile, tmpFile, true);
+            succeed = PDFHelper.RemoveProtection(tmpFile, pdfFile);
             // 移除水印链接
-            File.Copy(date, tmpFile, true);
-            File.Delete(date);
-            PdfHelper.RemoveUriLinks(tmpFile, date);
+            //File.Copy(pdfFile, tmpFile, true);
+            //File.Delete(pdfFile);
+            //PDFHelper.RemoveUriLinks(tmpFile, pdfFile);
+
+            return succeed;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace PDFWasher
 {
-    partial class frmMain
+    partial class FrmMain
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -28,41 +28,41 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.txtFielPath = new System.Windows.Forms.TextBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
+            this.txtPrompt = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // txtFielPath
+            // txtPrompt
             // 
-            this.txtFielPath.Location = new System.Drawing.Point(8, 7);
-            this.txtFielPath.Name = "txtFielPath";
-            this.txtFielPath.ReadOnly = true;
-            this.txtFielPath.Size = new System.Drawing.Size(367, 21);
-            this.txtFielPath.TabIndex = 0;
-            this.txtFielPath.TabStop = false;
-            this.txtFielPath.Text = "请直接拖入PDF文件";
+            this.txtPrompt.Location = new System.Drawing.Point(7, 7);
+            this.txtPrompt.Name = "txtPrompt";
+            this.txtPrompt.ReadOnly = true;
+            this.txtPrompt.Size = new System.Drawing.Size(295, 21);
+            this.txtPrompt.TabIndex = 0;
+            this.txtPrompt.TabStop = false;
+            this.txtPrompt.Text = "请直接拖入PDF文件（支持多文件）";
             // 
-            // frmMain
+            // FrmMain
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(382, 33);
-            this.Controls.Add(this.txtFielPath);
+            this.ClientSize = new System.Drawing.Size(309, 33);
+            this.Controls.Add(this.txtPrompt);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frmMain";
+            this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.frmMain_DragDrop);
-            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.frmMain_DragEnter);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FrmMain_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.FrmMain_DragEnter);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.TextBox txtFielPath;
+        private System.Windows.Forms.TextBox txtPrompt;
     }
 }
 
