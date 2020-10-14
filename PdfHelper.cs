@@ -8,29 +8,25 @@ namespace PDFWasher
     {
         public static bool RemoveProtection(string srcFile, string dstFile)
         {
-            using (var reader = new PdfReader(srcFile))
+            var reader = new PdfReader(srcFile);
+            PdfReader.unethicalreading = true;
+            var originalBookMark = SimpleBookmark.GetBookmark(reader);
+            using (var fs = new FileStream(dstFile, FileMode.Create, FileAccess.Write))
             {
-                PdfReader.unethicalreading = true;
-                // saving original bookmark
-                var bookMark = SimpleBookmark.GetBookmark(reader);
-                using (var fs = new FileStream(dstFile, FileMode.Create, FileAccess.Write))
+                using (var doc = new Document())
                 {
-                    using (var doc = new Document())
+                    using (var copy = new PdfCopy(doc, fs))
                     {
-                        using (var copy = new PdfCopy(doc, fs))
+                        doc.Open();
+                        for (var pageIndex = 1; pageIndex <= reader.NumberOfPages; pageIndex++)
                         {
-                            doc.Open();
-                            for (var pageIndex = 1; pageIndex <= reader.NumberOfPages; pageIndex++)
-                            {
-                                copy.AddPage(copy.GetImportedPage(reader, pageIndex));
-                            }
-                            if (null != bookMark)
-                            {
-                                copy.Outlines = bookMark;
-                            }
+                            copy.AddPage(copy.GetImportedPage(reader, pageIndex));
                         }
-
-                    }
+                        if (null != originalBookMark)
+                        {
+                            copy.Outlines = originalBookMark;
+                        }
+                    } 
                 }
             }
 
