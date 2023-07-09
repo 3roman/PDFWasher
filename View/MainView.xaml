@@ -1,0 +1,51 @@
+﻿<Window
+    x:Class="PDFWasher.View.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="https://github.com/canton7/Stylet"
+    Width="600"
+    Height="450"
+    AllowDrop="True"
+    AllowsTransparency="True"
+    Background="Transparent"
+    Drop="{s:Action OnDrop}"
+    PreviewKeyDown="{s:Action OnPreviewKeyDown}"
+    PreviewMouseMove="{s:Action OnPreviewMouseMove}"
+    Topmost="True"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+
+    <Grid>
+        <Image Source="pack://application:,,,/washing_machine.png" />
+        <Canvas>
+            <TextBlock
+                Canvas.Left="299"
+                Canvas.Top="231"
+                FontFamily="Impact"
+                FontSize="18"
+                Text="DRAG  HERE">
+                <TextBlock.Foreground>
+                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionTextColorKey}}" />
+                </TextBlock.Foreground>
+                <TextBlock.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ObjectAnimationUsingKeyFrames
+                                    RepeatBehavior="Forever"
+                                    Storyboard.TargetProperty="Visibility"
+                                    Duration="0:0:2">
+                                    <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}" />
+                                    <DiscreteObjectKeyFrame KeyTime="0:0:1" Value="{x:Static Visibility.Hidden}" />
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </TextBlock.Triggers>
+            </TextBlock>
+        </Canvas>
+    </Grid>
+</Window>
